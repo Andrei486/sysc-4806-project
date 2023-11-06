@@ -9,6 +9,6 @@ public class ControllerStructure {
     @GetMapping("/hello")
     public String sayHello(Model model) {
         model.addAttribute("message", "Hello, World!");
-        return "helloPage"; //Still have to make an html page called helloPage
+        return "helloPage"; //Still have to make a html page called helloPage
     }
 }
