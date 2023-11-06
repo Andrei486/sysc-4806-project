@@ -2,8 +2,12 @@ package org.group23;
 
 public class Question {
 
-    public int  survey_id;
-    public int id;
-    public String question;
+    private int  survey_id;
+    private int id;
+    private String question;
+
+    public Question(String question){
+        this.question = question;
+    }
 
 }

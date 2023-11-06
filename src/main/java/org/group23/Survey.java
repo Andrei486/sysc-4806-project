@@ -4,7 +4,19 @@ import java.util.ArrayList;
 
 public class Survey {
 
-    public int id;
-    public ArrayList<Question> questions;
+    private int id;
+    private ArrayList<Question> questions;
+
+    public Survey(){
+        this.questions = new ArrayList<Question>();
+    }
+
+    public void addQuestion(Question question){
+        this.questions.add(question);
+    }
+
+    public void removeQuestion(Question question){
+        this.questions.remove(question);
+    }
 
 }
