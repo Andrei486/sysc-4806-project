@@ -1,11 +1,12 @@
 package org.group23;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Survey {
 
     private int id;
-    private ArrayList<Question> questions;
+    private List<Question> questions;
 
     public Survey(){
         this.questions = new ArrayList<Question>();
@@ -19,4 +20,7 @@ public class Survey {
         this.questions.remove(question);
     }
 
+    public int getId() {
+        return id;
+    }
 }

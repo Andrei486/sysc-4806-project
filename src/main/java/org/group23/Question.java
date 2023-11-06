@@ -10,4 +10,19 @@ public class Question {
         this.question = question;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSurvey_id() {
+        return survey_id;
+    }
 }
