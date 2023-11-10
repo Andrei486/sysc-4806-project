@@ -1,7 +1,7 @@
 package org.group23;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class TextQuestionTest {
     TextQuestion textQuestion1;
     TextQuestion textQuestion2;
 
-    @Before
+    @BeforeEach
     public void setup(){
         textQuestion1 = new TextQuestion("What's your name?");
         textQuestion2 = new TextQuestion("What's your favorite color?");
@@ -22,7 +22,7 @@ public class TextQuestionTest {
     @Test
     public void testGetSetId(){
         textQuestion1.setId(5L);
-        assertEquals(textQuestion1.getId(),5);
+        assertEquals(5, textQuestion1.getId().longValue());
     }
 
     @Test
