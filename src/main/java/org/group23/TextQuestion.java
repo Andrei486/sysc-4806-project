@@ -1,18 +1,35 @@
 package org.group23;
 
-public class TextQuestion extends Question{
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
 
-    private String textResponse;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class TextQuestion extends Question {
+
+    @ElementCollection
+    private List<String> answers;
+
+    public TextQuestion() {
+        super();
+    }
 
     public TextQuestion(String question) {
         super(question);
+        this.answers = new ArrayList<>();
     }
 
-    public void setTextResponse(String textResponse) {
-        this.textResponse = textResponse;
+    public void addAnswer(String answer){
+        this.answers.add(answer);
     }
 
-    public String getTextResponse(){
-        return this.textResponse;
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 }
