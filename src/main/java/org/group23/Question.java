@@ -1,10 +1,19 @@
 package org.group23;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Question {
 
-    private int  survey_id;
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String question;
+
+    public Question(){}
 
     public Question(String question){
         this.question = question;
@@ -18,11 +27,11 @@ public class Question {
         this.question = question;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public int getSurvey_id() {
-        return survey_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
