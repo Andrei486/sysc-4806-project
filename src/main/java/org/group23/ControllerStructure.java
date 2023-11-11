@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @org.springframework.stereotype.Controller
 public class ControllerStructure {
@@ -19,10 +17,10 @@ public class ControllerStructure {
     @Autowired
     SurveyRepository surveyRepository;
 
-    @GetMapping("/hello")
+    @GetMapping("/index")
     public String sayHello(Model model) {
         model.addAttribute("message", "Hello, World!");
-        return "helloPage";
+        return "index";
     }
 
 
@@ -40,8 +38,8 @@ public class ControllerStructure {
         questions.add(new TextQuestion("What's your favorite color?"));
         survey.setQuestions(questions);
         surveyRepository.save(survey);
-        model.addAttribute("message", "Hello, World!");
-        return "helloPage";
+        model.addAttribute("survey", survey);
+        return "createSurvey";
     }
 
     @GetMapping("/getSurvey")
@@ -49,7 +47,7 @@ public class ControllerStructure {
         Survey survey = surveyRepository.findByName("Survey 1");
         //System.out.println(survey);
         model.addAttribute("message", "Hello, World!");
-        return "helloPage";
+        return "index";
     }
 
 }
