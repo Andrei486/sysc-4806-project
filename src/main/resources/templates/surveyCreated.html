@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Survey Created</title>
+</head>
+<body>
+<h2>Survey Created Successfully</h2>
+<p>The survey with name <span th:text="${survey.name}"></span> has been created.</p>
+<a th:href="@{/createSurvey}" class="btn btn-primary">Create Another Survey</a>
+</body>
+</html>
