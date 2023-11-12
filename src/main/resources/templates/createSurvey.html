@@ -3,22 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create A Survey</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Create survey</title>
 </head>
 <body>
     <h1>Create your survey</h1>
-    <form action="#" th:action="@{/createSurvey}" th:object="${survey}" method="post">
-        <p>Name: <input type="text" th:field="*{name}" /></p>
+    <form th:action="@{/saveSurveyName}" th:object="${survey}" method="post">
+        <label for="name">Enter your survey name:</label>
+        <input type="text" id="name" th:field="*{name}" required>
+        <input type="submit" value="Start">
     </form>
-    <form action="#" th:action="" th:object="" method="post">
-        <label for="qDropDown">Select a question type</label>
-        <select name="qDropDown" id="qDropDown">
-            <option value="openEnded">OpenEnded Question</option>
-            <option value="range">Range Question</option>
-            <option value="multipleChoice">MC Question</option>
-        </select>
-    </form>
-    <p><input type="submit" value="Submit" /></p>
 </body>
 </html>

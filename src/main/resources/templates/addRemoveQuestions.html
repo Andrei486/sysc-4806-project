@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify questions</title>
+</head>
+<body>
+    <h1>Add or remove questions</h1>
+    <p th:text="${survey.name}"></p>
+
+    <!-- Form to add a new question -->
+    <form th:action="@{/addQuestion/{surveyId}(surveyId=${survey.id})}" method="post">
+        <label for="questionDD">Choose question type</label>
+        <select id = "questionDD">
+            <option value="openEnded">Text</option>
+            <option value="range">Range</option>
+            <option value="multipleChoice">Options</option>
+        </select><br><br>
+        <label for="questionText">Create new question:</label>
+        <textarea id="questionText" name="questionText" required></textarea><br><br>
+        <input type="submit" value="Add">
+    </form>
+
+    <!-- Display existing questions and allow deletion -->
+    <ul>
+        <li th:each="question : ${survey.questions}">
+            <span th:text="${question.question}"></span>
+            <a th:href="@{'/deleteQuestion/' + ${survey.id} + '/' + ${question.id}}"><button>Delete</button></a>
+        </li>
+    </ul>
+</body>
+</html>
