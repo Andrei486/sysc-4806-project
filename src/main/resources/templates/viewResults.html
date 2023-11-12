@@ -8,5 +8,10 @@
 <body>
     <h1>Result of your survey</h1>
     <!--answers needed for result to show up-->
+    <p th:each="question : ${survey.questions}">
+        <p th:each="result : ${question.answers}">
+            <span th:text="${result}"></span>
+        </p>
+    </p>
 </body>
 </html>

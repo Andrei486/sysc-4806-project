@@ -24,10 +24,10 @@
 
     <!-- Display existing questions and allow deletion -->
     <ul>
-        <li th:each="question : ${survey.questions}">
+        <p th:each="question : ${survey.questions}">
             <span th:text="${question.question}"></span>
             <a th:href="@{'/deleteQuestion/' + ${survey.id} + '/' + ${question.id}}"><button>Delete</button></a>
-        </li>
+        </p>
     </ul>
 </body>
 </html>
