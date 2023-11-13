@@ -17,11 +17,13 @@ public class Survey {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
 
-    public Survey(){}
+    public Survey(){
+        this.questions = new ArrayList<>();
+    }
 
     public Survey(String name){
+        this();
         this.name = name;
-        this.questions = new ArrayList<>();
     }
 
     public void addQuestion(Question question){
