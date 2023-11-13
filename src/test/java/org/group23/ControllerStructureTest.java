@@ -91,7 +91,7 @@ public class ControllerStructureTest {
         Survey survey = new Survey("SurveyMonkey");
         this.surveyRepository.save(survey);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/surveyCreated"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/surveyCreated/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("surveyCreated"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("survey"));
