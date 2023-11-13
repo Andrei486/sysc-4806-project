@@ -1,7 +1,7 @@
 package org.group23;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class SurveyTest {
     Question question2;
     List<Question> questions;
 
-    @Before
+    @BeforeEach
     public void setup(){
         survey1 = new Survey("Survey 1");
         questions = new ArrayList<>();
@@ -34,7 +34,7 @@ public class SurveyTest {
     @Test
     public void testGetSetId(){
         survey1.setId(5L);
-        assertEquals(survey1.getId(),5);
+        assertEquals(5, survey1.getId().longValue());
     }
 
     @Test
