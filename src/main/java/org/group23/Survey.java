@@ -26,6 +26,7 @@ public class Survey {
     public Survey(String name, String author){
         this();
         this.name = name;
+        this.author = author;
     }
 
     public void addQuestion(Question question){

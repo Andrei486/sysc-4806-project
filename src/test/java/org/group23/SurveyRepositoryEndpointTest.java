@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -58,6 +59,7 @@ public class SurveyRepositoryEndpointTest {
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int addressBookCount = jsonObject.getJSONObject("_embedded").getJSONArray("surveys").length();
         this.mockMvc.perform(post("/surveys")
+                        .with(csrf())
                         .accept("application/json")
                         .content("{\"id\": 5}"))
                 .andDo(print()).andExpect(status().isCreated());
@@ -76,6 +78,7 @@ public class SurveyRepositoryEndpointTest {
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int addressBookCount = jsonObject.getJSONObject("_embedded").getJSONArray("surveys").length();
         this.mockMvc.perform(delete("/surveys/2")
+                        .with(csrf())
                         .accept("application/json"))
                 .andDo(print()).andExpect(status().is2xxSuccessful());
         result = this.mockMvc.perform(get("/surveys")).andDo(print()).andReturn();

@@ -12,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -58,6 +59,7 @@ public class QuestionRepositoryEndpointTest {
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int questionCount = jsonObject.getJSONObject("_embedded").getJSONArray("questions").length();
         this.mockMvc.perform(post("/questions")
+                        .with(csrf())
                         .accept("application/json")
                         .content("{\"question\": \"Who are you?\"}"))
                 .andDo(print()).andExpect(status().isCreated());
@@ -79,6 +81,7 @@ public class QuestionRepositoryEndpointTest {
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int questionCount = jsonObject.getJSONObject("_embedded").getJSONArray("questions").length();
         this.mockMvc.perform(delete("/questions/3")
+                        .with(csrf())
                         .accept("application/json"))
                 .andDo(print()).andExpect(status().is2xxSuccessful());
         result = this.mockMvc.perform(get("/questions")).andDo(print()).andReturn();
@@ -100,6 +103,7 @@ public class QuestionRepositoryEndpointTest {
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int questionCount = jsonObject.getJSONObject("_embedded").getJSONArray("questions").length();
         this.mockMvc.perform(delete("/surveys/1/questions/2")
+                        .with(csrf())
                         .accept("application/json"))
                 .andDo(print()).andExpect(status().is2xxSuccessful());
         result = this.mockMvc.perform(get("/surveys/1/questions")).andDo(print()).andReturn();

@@ -24,10 +24,15 @@
 
     <!-- Display existing questions and allow deletion -->
     <ul>
-        <p th:each="question : ${survey.questions}">
-            <span th:text="${question.question}"></span>
-            <a th:href="@{'/deleteQuestion/' + ${survey.id} + '/' + ${question.id}}"><button>Delete</button></a>
-        </p>
+        <th:block th:each="question : ${survey.questions}">
+            <li>
+                <span th:text="${question.question}"></span>
+                <form th:action="@{/deleteQuestion/{surveyId}/{questionId}(surveyId=${survey.id}, questionId=${question.id})}" method="post" style="display: inline;">
+                    <input type="submit" value="Del">
+                </form>
+                <p></p> <!-- For spacing, this will be improved anyway later -->
+            </li>
+        </th:block>
     </ul>
 </body>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -27,6 +28,7 @@ public class ControllerStructureTest {
     }
 
     @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void createSurveyForm() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/createSurvey"))
@@ -35,6 +37,7 @@ public class ControllerStructureTest {
     }
 
     @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void addQuestion() throws Exception {
         Survey survey = new Survey("SurveyMonkey", "user1");
@@ -49,6 +52,7 @@ public class ControllerStructureTest {
     }
 
     @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void deleteQuestion() throws Exception {
         Survey survey = new Survey("SurveyMonkey", "user1");
@@ -58,12 +62,14 @@ public class ControllerStructureTest {
         survey.addQuestion(question);
         this.surveyRepository.save(survey);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/deleteQuestion/{surveyId}/{questionId}", survey.getId(), question.getId()))
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/deleteQuestion/{surveyId}/{questionId}", survey.getId(), question.getId())
+                        .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/addRemoveQuestions/" + survey.getId()));
     }
 
     @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void addRemoveQuestionsForm() throws Exception {
         Survey survey = new Survey("SurveyMonkey", "user1");
@@ -76,6 +82,7 @@ public class ControllerStructureTest {
     }
 
     @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void saveSurvey() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/saveSurvey"))
@@ -84,6 +91,7 @@ public class ControllerStructureTest {
     }
 
     @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void saveSurveyName() throws Exception {
         Survey survey = new Survey("SurveyMonkey", "user1");
@@ -96,6 +104,7 @@ public class ControllerStructureTest {
     }
 
     @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void surveyCreated() throws Exception {
         Survey survey = new Survey("SurveyMonkey", "user1");
