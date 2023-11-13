@@ -14,6 +14,8 @@ public class Survey {
 
     private String name;
 
+    private String author;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
 
@@ -21,7 +23,7 @@ public class Survey {
         this.questions = new ArrayList<>();
     }
 
-    public Survey(String name){
+    public Survey(String name, String author){
         this();
         this.name = name;
     }
@@ -56,6 +58,14 @@ public class Survey {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
 }

@@ -1,8 +1,12 @@
 package org.group23;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @org.springframework.stereotype.Controller
 public class ControllerStructure {
@@ -20,6 +24,9 @@ public class ControllerStructure {
 
     @PostMapping("/saveSurveyName")
     public String saveSurveyName(@ModelAttribute("survey") Survey survey) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        survey.setAuthor(username);
         surveyRepository.save(survey);
         return "redirect:/addRemoveQuestions/" + survey.getId();
     }
@@ -28,12 +35,17 @@ public class ControllerStructure {
     public String addRemoveQuestionsForm(@PathVariable Long surveyId, Model model) {
         // Get the survey by ID
         Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
 
-        if (survey != null) {
+        if (survey != null && Objects.equals(username, survey.getAuthor())) {
             model.addAttribute("survey", survey);
             return "addRemoveQuestions";
         } else {
             // Handle survey not found
+            model.addAttribute(
+                    "message",
+                    "The survey was not found, or you do not have permission to edit it.");
             return "error";
         }
     }

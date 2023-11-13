@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -43,6 +44,7 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldReturnQuestions() throws Exception {
         this.mockMvc.perform(get("/questions")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.questions").isArray());
@@ -50,6 +52,7 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldAddQuestion() throws Exception {
         MvcResult result = this.mockMvc.perform(get("/questions")).andDo(print()).andReturn();
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
@@ -66,6 +69,7 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldRemoveQuestion() throws Exception {
         MvcResult result = this.mockMvc
                 .perform(get("/questions"))
@@ -86,6 +90,7 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldRemoveQuestionFromSurvey() throws Exception {
         MvcResult result = this.mockMvc
                 .perform(get("/surveys/1/questions"))

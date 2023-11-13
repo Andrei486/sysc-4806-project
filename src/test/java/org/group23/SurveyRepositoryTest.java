@@ -23,7 +23,7 @@ public class SurveyRepositoryTest {
     @Test
     @DirtiesContext
     public void saveSurvey() {
-        var s1 = new Survey("Test Survey 1");
+        var s1 = new Survey("Test Survey 1", "admin");
 
         surveyRepository.save(s1);
 
@@ -35,8 +35,8 @@ public class SurveyRepositoryTest {
     public void getSurveyById() {
         var name1 = "Test Survey 1";
         var name2 = "Test Survey 2";
-        var s1 = new Survey(name1);
-        var s2 = new Survey(name2);
+        var s1 = new Survey(name1, "admin");
+        var s2 = new Survey(name2, "admin");
         surveyRepository.save(s1);
         surveyRepository.save(s2);
 
@@ -54,8 +54,8 @@ public class SurveyRepositoryTest {
     public void getSurveyByName() {
         var name1 = "Test Survey 1";
         var name2 = "Test Survey 2";
-        var s1 = new Survey(name1);
-        var s2 = new Survey(name2);
+        var s1 = new Survey(name1, "admin");
+        var s2 = new Survey(name2, "admin");
         surveyRepository.save(s1);
         surveyRepository.save(s2);
 
@@ -73,7 +73,7 @@ public class SurveyRepositoryTest {
     public void saveSurveyCascadeSavesQuestions() {
         var q1 = new TextQuestion("Test Question 1?");
         var q2 = new TextQuestion("Test Question 2?");
-        var s1 = new Survey("Test Survey 1");
+        var s1 = new Survey("Test Survey 1", "admin");
         s1.addQuestion(q1);
         s1.addQuestion(q2);
 
@@ -90,7 +90,7 @@ public class SurveyRepositoryTest {
     public void addQuestionToSurveyPropagates() {
         var q1 = new TextQuestion("Test Question 1?");
         var q2 = new TextQuestion("Test Question 2?");
-        var s1 = new Survey("Test Survey 1");
+        var s1 = new Survey("Test Survey 1", "admin");
         s1.addQuestion(q1);
         surveyRepository.save(s1);
         // Check that initialization was correct
@@ -113,7 +113,7 @@ public class SurveyRepositoryTest {
     public void removeQuestionFromSurveyDoesNotPropagate() {
         var q1 = new TextQuestion("Test Question 1?");
         var q2 = new TextQuestion("Test Question 2?");
-        var s1 = new Survey("Test Survey 1");
+        var s1 = new Survey("Test Survey 1", "admin");
         s1.addQuestion(q1);
         s1.addQuestion(q2);
         surveyRepository.save(s1);
