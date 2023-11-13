@@ -45,6 +45,12 @@ public class ControllerStructure {
             @RequestParam String questionText,
             Model model
     ) {
+        // Validate length before adding to the database
+        if (questionText.length() > 255) {
+            // Handle the case where the question text is too long
+            model.addAttribute("error", "Question text is too long. Please enter a shorter question.");
+            return "error";
+        }
         // Get the survey by ID to ensure we have the latest data
         Survey updatedSurvey = surveyRepository.findById(surveyId).orElse(null);
         if (updatedSurvey != null) {
@@ -92,9 +98,10 @@ public class ControllerStructure {
         return "redirect:/surveyCreated";
     }
 
-    @GetMapping("/surveyCreated")
-    public String surveyCreated(Model model) {
-        Survey survey = surveyRepository.findTopByOrderByIdDesc();
+    @GetMapping("/surveyCreated/{surveyId}")
+    public String surveyCreated(@PathVariable Long surveyId, Model model) {
+        // Retrieve the survey by the provided surveyId
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
 
         if (survey != null) {
             model.addAttribute("survey", survey);
