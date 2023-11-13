@@ -13,10 +13,10 @@ This project is a simplified survey application, based on SurveyMonkey, allowing
 # Getting Started
 
 Prerequisites
-  Azure Account
-  Azure CLI installed
-  Java Development Kit (JDK)
-  Azure Spring Cloud Plugin
+  - Azure Account
+  - Azure CLI installed
+  - Java Development Kit (JDK)
+  - Azure Spring Cloud Plugin
 
 # Deployment Steps
 
@@ -61,8 +61,8 @@ UML:
 
 # Contribution
 
-  Daniah Mohammed
-  Andrei Popescu
-  Cam Sommerville
-  Rayat Md Kibria
-  David Birinberg
+  - Daniah Mohammed
+  - Andrei Popescu
+  - Cam Sommerville
+  - Rayat Md Kibria
+  - David Birinberg
