@@ -1,7 +1,6 @@
 package org.group23;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -52,7 +51,6 @@ public class ControllerStructure {
     }
 
     @PostMapping("/addQuestion/{surveyId}")
-    @PreAuthorize("#survey.author == authentication.name")
     public String addQuestion(
             @PathVariable Long surveyId,
             @ModelAttribute("survey") Survey survey,
@@ -66,8 +64,10 @@ public class ControllerStructure {
             return "error";
         }
         // Get the survey by ID to ensure we have the latest data
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
         Survey updatedSurvey = surveyRepository.findById(surveyId).orElse(null);
-        if (updatedSurvey != null) {
+        if (updatedSurvey != null && Objects.equals(username, updatedSurvey.getAuthor())) {
             // Create a text question and add it to the survey
             TextQuestion textQuestion = new TextQuestion(questionText);
             updatedSurvey.addQuestion(textQuestion);

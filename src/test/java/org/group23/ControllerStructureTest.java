@@ -29,6 +29,14 @@ public class ControllerStructureTest {
 
     @Test
     @DirtiesContext
+    public void accessHomepageUnauthenticated() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("index"));
+    }
+
+    @Test
+    @DirtiesContext
     @WithMockUser(username = "user1")
     public void createSurveyForm() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/createSurvey"))
