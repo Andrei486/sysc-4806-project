@@ -3,10 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to SurveyMonkey</title>
+    <title>Mini Survey Monkey - Welcome</title>
 </head>
 <body>
-    <h1 th:text="${message}">Welcome!</h1>
+    <div th:replace="fragments/header"></div>
+    <h1>Welcome!</h1>
     <a href="/createSurvey" class="btn btn-primary"><button>Create survey</button></a>
 </body>
 </html>

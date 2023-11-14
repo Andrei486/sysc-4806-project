@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Survey Results</title>
+    <meta charset="UTF-8">
+    <title>Survey Results</title>
 </head>
 <body>
-<h2>Survey Results</h2>
+    <div th:replace="fragments/header"></div>
+    <h2>Survey Results</h2>
 
-<p th:text="${message}"></p>
+    <p th:text="${message}"></p>
 </body>
 </html>

@@ -6,6 +6,7 @@
     <title>Create survey</title>
 </head>
 <body>
+    <div th:replace="fragments/header"></div>
     <h1>Create your survey</h1>
     <form th:action="@{/saveSurveyName}" th:object="${survey}" method="post">
         <label for="name">Enter your survey name:</label>
