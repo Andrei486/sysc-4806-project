@@ -18,17 +18,34 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Returns a builder used for MVC matcher patterns.
+     * This is required to remove ambiguity due to a vulnerability.
+     * @param introspector the introspector, automatically injected
+     * @return the builder to use when creating patterns
+     */
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
         return new MvcRequestMatcher.Builder(introspector);
     }
 
+    /**
+     * Returns the password encoder to use for this application.
+     * @return the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /**
+     * Returns the application's user details service.
+     * This service is responsible for retrieving user information for authentication.
+     * @return the user details service
+     */
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
+        // Manually defines three users.
         UserDetails user1 = User.withUsername("Andrei")
                 .password(passwordEncoder().encode("Andrei"))
                 .roles("USER")
@@ -47,14 +64,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         http
+                // Allow all requests to the home page
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(mvc.pattern("/")).permitAll()
                         .anyRequest().authenticated()
                 )
+                // Define the login path, and allow all requests to it
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
                 )
+                // Allow all logouts
                 .logout((logout) -> logout.permitAll());
 
         return http.build();
