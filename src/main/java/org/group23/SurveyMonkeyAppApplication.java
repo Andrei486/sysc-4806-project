@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
-public class SurveyMonkeyAppApplication extends WebMvcAutoConfiguration {
+public class SurveyMonkeyAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(SurveyMonkeyAppApplication.class, args);
     }
