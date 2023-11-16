@@ -6,6 +6,7 @@
     <title>Modify questions</title>
 </head>
 <body>
+    <div th:replace="fragments/header"></div>
     <h1>Add or remove questions</h1>
     <p th:text="${survey.name}"></p>
 
@@ -24,10 +25,15 @@
 
     <!-- Display existing questions and allow deletion -->
     <ul>
-        <p th:each="question : ${survey.questions}">
-            <span th:text="${question.question}"></span>
-            <a th:href="@{'/deleteQuestion/' + ${survey.id} + '/' + ${question.id}}"><button>Delete</button></a>
-        </p>
+        <th:block th:each="question : ${survey.questions}">
+            <li>
+                <span th:text="${question.question}"></span>
+                <form th:action="@{/deleteQuestion/{surveyId}/{questionId}(surveyId=${survey.id}, questionId=${question.id})}" method="post" style="display: inline;">
+                    <input type="submit" value="Delete">
+                </form>
+                <p></p> <!-- For spacing, this will be improved anyway later -->
+            </li>
+        </th:block>
     </ul>
 </body>
 </html>

@@ -1,0 +1,9 @@
+<!-- This is a reusable fragment that should be added at the top of every page (except login). -->
+<header>
+    <nav>
+        <a href="/">Home</a>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <div><input type="submit" value="Sign Out"/></div>
+        </form>
+    </nav>
+</header>

@@ -17,7 +17,7 @@ public class SurveyTest {
 
     @BeforeEach
     public void setup(){
-        survey1 = new Survey("Survey 1");
+        survey1 = new Survey("Survey 1", "admin");
         questions = new ArrayList<>();
         question1 = new TextQuestion("What's your name?");
         question2 = new TextQuestion("What's your favorite color?");
