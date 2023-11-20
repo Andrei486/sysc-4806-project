@@ -2,6 +2,9 @@ package org.group23;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumericalQuestionTest {
@@ -11,19 +14,19 @@ class NumericalQuestionTest {
         NumericalQuestion numericalQuestion = new NumericalQuestion("Test Numerical Question");
 
         // Set a valid numerical answer
-        numericalQuestion.setNumericalAnswer("12345");
+        numericalQuestion.setAnswer("123.45");
 
         // Verify that the answer is set correctly
-        assertEquals("12345", numericalQuestion.getNumericalAnswer());
+        assertEquals(123.45, numericalQuestion.getAnswer(), 0.001); // Using a delta for double comparison
     }
 
     @Test
     public void setNumericalAnswer_invalidLength_shouldThrowException() {
         NumericalQuestion numericalQuestion = new NumericalQuestion("Test Numerical Question");
 
-        // Set an invalid numerical answer (too long)
+        // Set an invalid numerical answer (non-numeric)
         assertThrows(IllegalArgumentException.class, () -> {
-            numericalQuestion.setNumericalAnswer("1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890");
+            numericalQuestion.setAnswer("invalid");
         });
     }
 }

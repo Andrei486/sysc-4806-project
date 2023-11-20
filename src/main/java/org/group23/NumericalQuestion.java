@@ -1,38 +1,36 @@
 package org.group23;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class NumericalQuestion extends Question {
 
     //single numerical answer with a restricted length
     @Column
-    private String numericalAnswer;
-
-    public NumericalQuestion(String question, String numericalAnswer) {
-        super(question);
-        this.numericalAnswer = numericalAnswer;
-    }
+    private Double numericalAnswer;
 
     public NumericalQuestion(String question) {
         super(question);
     }
 
     public NumericalQuestion() {
-
     }
 
-    public String getNumericalAnswer() {
+    public Double getAnswer() {
         return numericalAnswer;
     }
 
-    public void setNumericalAnswer(String numericalAnswer) {
-        // Validate length before setting the answer
-        if (numericalAnswer.length() <= 255) {
-            this.numericalAnswer = numericalAnswer;
-        } else {
-            throw new IllegalArgumentException("Numerical answer is too long. Please enter a shorter answer.");
+    public void setAnswer(String numericalAnswer) {
+        // Validate the numerical values
+        try {
+            this.numericalAnswer = Double.parseDouble(numericalAnswer);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid numerical answer. Please enter a valid number.");
         }
     }
 }
