@@ -11,26 +11,63 @@ import java.util.List;
 public class NumericalQuestion extends Question {
 
     //single numerical answer with a restricted length
+    @ElementCollection
+    private List<Double> numericalAnswers;
     @Column
-    private Double numericalAnswer;
+    private Double minBound;
 
-    public NumericalQuestion(String question) {
+    @Column
+    private Double maxBound;
+
+    public NumericalQuestion(String question, Double minBound, Double maxBound) {
         super(question);
+        this.minBound = minBound;
+        this.maxBound = maxBound;
+        this.numericalAnswers = new ArrayList<>();
     }
 
     public NumericalQuestion() {
+        super();
+        this.numericalAnswers = new ArrayList<>();
     }
 
-    public Double getAnswer() {
-        return numericalAnswer;
+    public List<Double> getNumericalAnswers() {
+        return numericalAnswers;
     }
 
-    public void setAnswer(String numericalAnswer) {
-        // Validate the numerical values
-        try {
-            this.numericalAnswer = Double.parseDouble(numericalAnswer);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid numerical answer. Please enter a valid number.");
+    public Double getMinBound() {
+        return minBound;
+    }
+
+    public void setMinBound(Double minBound) {
+        validateBounds(minBound, maxBound);
+        this.minBound = minBound;
+    }
+
+    public Double getMaxBound() {
+        return maxBound;
+    }
+
+    public void setMaxBound(Double maxBound) {
+        validateBounds(minBound, maxBound);
+        this.maxBound = maxBound;
+    }
+
+    public void setNumericalAnswers(Double numericalAnswer) {
+        validateNumericalAnswer(numericalAnswer);
+        numericalAnswers.clear();
+        numericalAnswers.add(numericalAnswer);
+    }
+
+    private void validateNumericalAnswer(Double numericalAnswer) {
+        if (numericalAnswer < minBound || numericalAnswer > maxBound) {
+            throw new IllegalArgumentException("Numerical answer must be within the specified range.");
+        }
+    }
+
+    private void validateBounds(Double minBound, Double maxBound) {
+        if (minBound >= maxBound) {
+            throw new IllegalArgumentException("Minimum bound must be less than maximum bound.");
         }
     }
 }
