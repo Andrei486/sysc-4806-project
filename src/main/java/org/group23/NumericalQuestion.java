@@ -35,6 +35,16 @@ public class NumericalQuestion extends Question {
         return numericalAnswers;
     }
 
+    private void addNumericalAnswer(Double answer){
+        validateNumericalAnswer(answer);
+        this.numericalAnswers.add(answer);
+    }
+
+    @Override
+    public void addAnswer(String rawAnswer) {
+        addNumericalAnswer(Double.parseDouble(rawAnswer));
+    }
+
     public Double getMinBound() {
         return minBound;
     }
@@ -53,10 +63,12 @@ public class NumericalQuestion extends Question {
         this.maxBound = maxBound;
     }
 
-    public void setNumericalAnswers(Double numericalAnswer) {
-        validateNumericalAnswer(numericalAnswer);
+    public void setNumericalAnswers(List<Double> newAnswers) {
+        for (Double answer : newAnswers) {
+            validateNumericalAnswer(answer);
+        }
         numericalAnswers.clear();
-        numericalAnswers.add(numericalAnswer);
+        numericalAnswers.addAll(newAnswers);
     }
 
     private void validateNumericalAnswer(Double numericalAnswer) {
