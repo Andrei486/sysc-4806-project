@@ -63,6 +63,10 @@ public class NumericalQuestion extends Question {
         this.maxBound = maxBound;
     }
 
+    public List<Double> getAnswers() {
+        return numericalAnswers;
+    }
+
     public void setNumericalAnswers(List<Double> newAnswers) {
         for (Double answer : newAnswers) {
             validateNumericalAnswer(answer);

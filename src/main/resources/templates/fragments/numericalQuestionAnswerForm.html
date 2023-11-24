@@ -1,5 +1,11 @@
 <!-- This is a reusable fragment used to generate answer forms for a numerical question. -->
 <div>
-    <label th:for="'question_' + ${question.id}" th:text="${question.question}"></label><br>
-    <input type="number" th:min="${question.minBound}" th:max="${question.maxBound}" th:id="'question_' + ${question.id}" required/><br>
+    <label th:for="'question_' + ${question.id}" th:text="${question.question}"></label><br/>
+    <input
+            type="number"
+            th:min="${question.minBound}"
+            th:max="${question.maxBound}"
+            th:id="'question_' + ${question.id}"
+            th:name="'question_' + ${question.id}"
+            th:required="required"/><br/>
 </div>

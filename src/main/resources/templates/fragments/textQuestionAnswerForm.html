@@ -1,5 +1,5 @@
 <!-- This is a reusable fragment used to generate answer forms for a text question. -->
 <div>
-    <label th:for="'question_' + ${question.id}" th:text="${question.question}"></label><br>
-    <input type="text" th:id="${question.id}" th:name="'question_' + ${question.id}" required/><br>
+    <label th:for="'question_' + ${question.id}" th:text="${question.question}"></label><br/>
+    <input type="text" th:id="'question_' + ${question.id}" th:name="'question_' + ${question.id}" th:required="required"/><br/>
 </div>
