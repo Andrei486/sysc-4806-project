@@ -14,7 +14,7 @@ class NumericalQuestionTest {
 
         // Set a valid numerical answer within the specified range
         Double validAnswer = 50.0;
-        numericalQuestion.setNumericalAnswers(validAnswer);
+        numericalQuestion.setNumericalAnswers(Collections.singletonList(validAnswer));
 
         // Verify that the answer is set correctly
         assertEquals(Collections.singletonList(validAnswer), numericalQuestion.getNumericalAnswers());
@@ -26,7 +26,7 @@ class NumericalQuestionTest {
         // Set an invalid numerical answer (outside the specified range)
         Double invalidAnswer = 150.0;
         assertThrows(IllegalArgumentException.class, () -> {
-            numericalQuestion.setNumericalAnswers(invalidAnswer);
+            numericalQuestion.setNumericalAnswers(Collections.singletonList(invalidAnswer));
         });
         // Verify that the answer list remains empty
         assertTrue(numericalQuestion.getNumericalAnswers().isEmpty());
@@ -35,14 +35,14 @@ class NumericalQuestionTest {
     @Test
     public void addNumericalAnswer_withinRange_shouldAddAnswerToList() {
         NumericalQuestion numericalQuestion = new NumericalQuestion("Test Numerical Question", 0.0, 100.0);
-        numericalQuestion.setNumericalAnswers(50.0);
+        numericalQuestion.setNumericalAnswers(Collections.singletonList(50.0));
         assertEquals(Arrays.asList(50.0), numericalQuestion.getNumericalAnswers());
     }
 
     @Test
     public void addNumericalAnswer_outsideRange_shouldThrowException() {
         NumericalQuestion numericalQuestion = new NumericalQuestion("Test Numerical Question", 0.0, 100.0);
-        assertThrows(IllegalArgumentException.class, () -> numericalQuestion.setNumericalAnswers(150.0));
+        assertThrows(IllegalArgumentException.class, () -> numericalQuestion.setNumericalAnswers(Collections.singletonList(150.0)));
         assertTrue(numericalQuestion.getNumericalAnswers().isEmpty());
     }
 

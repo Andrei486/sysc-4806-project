@@ -34,4 +34,8 @@ public class Question {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void addAnswer(String rawAnswer) {
+
+    }
 }

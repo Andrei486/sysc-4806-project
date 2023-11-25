@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="fragments/header"></div>
+    <h1 th:text="'Survey: ' + ${survey.name}"></h1>
+    <form th:action="@{/answerSurvey/{surveyId}/submit(surveyId=${survey.id})}" method="post">
+        <div th:each="question : ${survey.questions}">
+            <div th:if="${question.class.name == 'org.group23.TextQuestion'}">
+                <div th:replace="fragments/textQuestionAnswerForm"></div>
+            </div>
+            <div th:if="${question.class.name == 'org.group23.NumericalQuestion'}">
+                <div th:replace="fragments/numericalQuestionAnswerForm"></div>
+            </div>
+        </div>
+
+        <input type="submit"/>
+    </form>
+</body>
+</html>

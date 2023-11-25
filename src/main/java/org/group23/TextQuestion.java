@@ -21,6 +21,7 @@ public class TextQuestion extends Question {
         this.answers = new ArrayList<>();
     }
 
+    @Override
     public void addAnswer(String answer){
         this.answers.add(answer);
     }

@@ -50,15 +50,25 @@ public class MCQuestion extends Question {
     }
 
     public void setAnswers(Collection<String> answers) {
+        for (String answer: answers) {
+            validateAnswer(answer);
+        }
         this.answers = answers;
     }
 
-//    /**
-//     * Adds a new answer
-//     * @param answer {String}
-//     */
-//    public void addAnswer(String answer) {
-//        this.answers.add(answer);
-//    }
+    /**
+     * Adds a new answer
+     * @param rawAnswer {String}
+     */
+    @Override
+    public void addAnswer(String rawAnswer) {
+        validateAnswer(rawAnswer);
+        this.answers.add(rawAnswer);
+    }
 
+    private void validateAnswer(String answer) {
+        if (!options.contains(answer)) {
+            throw new IllegalArgumentException("Answer must be one of the given options.");
+        }
+    }
 }
