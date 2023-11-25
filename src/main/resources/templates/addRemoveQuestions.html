@@ -35,5 +35,8 @@
             </li>
         </th:block>
     </ul>
+    <form action="#" th:action="@{/viewResults/{surveyId}(surveyId=${survey.id})}" method="get">
+        <p><input type="submit" value="View Results" /></p>
+    </form>
 </body>
 </html>
