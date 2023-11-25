@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -43,6 +45,7 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldReturnQuestions() throws Exception {
         this.mockMvc.perform(get("/questions")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.questions").isArray());
@@ -50,11 +53,13 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldAddQuestion() throws Exception {
         MvcResult result = this.mockMvc.perform(get("/questions")).andDo(print()).andReturn();
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int questionCount = jsonObject.getJSONObject("_embedded").getJSONArray("questions").length();
         this.mockMvc.perform(post("/questions")
+                        .with(csrf())
                         .accept("application/json")
                         .content("{\"question\": \"Who are you?\"}"))
                 .andDo(print()).andExpect(status().isCreated());
@@ -66,6 +71,7 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldRemoveQuestion() throws Exception {
         MvcResult result = this.mockMvc
                 .perform(get("/questions"))
@@ -75,6 +81,7 @@ public class QuestionRepositoryEndpointTest {
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int questionCount = jsonObject.getJSONObject("_embedded").getJSONArray("questions").length();
         this.mockMvc.perform(delete("/questions/3")
+                        .with(csrf())
                         .accept("application/json"))
                 .andDo(print()).andExpect(status().is2xxSuccessful());
         result = this.mockMvc.perform(get("/questions")).andDo(print()).andReturn();
@@ -86,6 +93,7 @@ public class QuestionRepositoryEndpointTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user1")
     public void shouldRemoveQuestionFromSurvey() throws Exception {
         MvcResult result = this.mockMvc
                 .perform(get("/surveys/1/questions"))
@@ -95,6 +103,7 @@ public class QuestionRepositoryEndpointTest {
         JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
         int questionCount = jsonObject.getJSONObject("_embedded").getJSONArray("questions").length();
         this.mockMvc.perform(delete("/surveys/1/questions/2")
+                        .with(csrf())
                         .accept("application/json"))
                 .andDo(print()).andExpect(status().is2xxSuccessful());
         result = this.mockMvc.perform(get("/surveys/1/questions")).andDo(print()).andReturn();

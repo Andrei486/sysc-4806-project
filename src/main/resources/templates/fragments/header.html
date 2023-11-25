@@ -1,0 +1,15 @@
+<!-- This is a reusable fragment that should be added at the top of every page (except login). -->
+<header xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <div sec:authorize="isAuthenticated()">
+        Logged in as: <span sec:authentication="name"></span>
+    </div>
+    <div sec:authorize="!isAuthenticated()">
+        Not logged in
+    </div>
+    <nav sec:authorize="isAuthenticated()">
+        <a href="/">Home</a>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <div><input type="submit" value="Sign Out"/></div>
+        </form>
+    </nav>
+</header>

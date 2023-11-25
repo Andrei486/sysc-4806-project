@@ -6,6 +6,7 @@
     <title>Survey created</title>
 </head>
 <body>
+    <div th:replace="fragments/header"></div>
     <h1>Survey created successfully</h1>
     <p>The survey <span th:text="${survey.name}"></span> has been created</p>
     <a th:href="@{/createSurvey}" class="btn btn-primary"><button>Create another survey</button></a>

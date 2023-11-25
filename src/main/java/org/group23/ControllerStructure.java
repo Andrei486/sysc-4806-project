@@ -1,8 +1,12 @@
 package org.group23;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @org.springframework.stereotype.Controller
 public class ControllerStructure {
@@ -20,6 +24,9 @@ public class ControllerStructure {
 
     @PostMapping("/saveSurveyName")
     public String saveSurveyName(@ModelAttribute("survey") Survey survey) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        survey.setAuthor(username);
         surveyRepository.save(survey);
         return "redirect:/addRemoveQuestions/" + survey.getId();
     }
@@ -28,12 +35,17 @@ public class ControllerStructure {
     public String addRemoveQuestionsForm(@PathVariable Long surveyId, Model model) {
         // Get the survey by ID
         Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
 
-        if (survey != null) {
+        if (survey != null && Objects.equals(username, survey.getAuthor())) {
             model.addAttribute("survey", survey);
             return "addRemoveQuestions";
         } else {
             // Handle survey not found
+            model.addAttribute(
+                    "message",
+                    "The survey was not found, or you do not have permission to edit it.");
             return "error";
         }
     }
@@ -52,8 +64,10 @@ public class ControllerStructure {
             return "error";
         }
         // Get the survey by ID to ensure we have the latest data
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
         Survey updatedSurvey = surveyRepository.findById(surveyId).orElse(null);
-        if (updatedSurvey != null) {
+        if (updatedSurvey != null && Objects.equals(username, updatedSurvey.getAuthor())) {
             // Create a text question and add it to the survey
             TextQuestion textQuestion = new TextQuestion(questionText);
             updatedSurvey.addQuestion(textQuestion);
@@ -64,18 +78,24 @@ public class ControllerStructure {
             return "redirect:/addRemoveQuestions/" + surveyId;
         } else {
             // Handle survey not found
+            model.addAttribute(
+                    "message",
+                    "The survey was not found, or you do not have permission to edit it.");
             return "error";
         }
     }
 
-    @GetMapping("/deleteQuestion/{surveyId}/{questionId}")
+    @PostMapping("/deleteQuestion/{surveyId}/{questionId}")
     public String deleteQuestion(
             @PathVariable Long surveyId,
-            @PathVariable Long questionId
+            @PathVariable Long questionId,
+            Model model
     ) {
         // Get the survey by ID
         Survey survey = surveyRepository.findById(surveyId).orElse(null);
-        if (survey != null) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        if (survey != null && Objects.equals(username, survey.getAuthor())) {
             // Find and remove the question from the survey
             Question questionToRemove = survey.getQuestions().stream()
                     .filter(question -> question.getId().equals(questionId))
@@ -89,6 +109,9 @@ public class ControllerStructure {
             return "redirect:/addRemoveQuestions/" + survey.getId();
         } else {
             // Handle survey not found
+            model.addAttribute(
+                    "message",
+                    "The survey was not found, or you do not have permission to edit it.");
             return "error";
         }
     }
