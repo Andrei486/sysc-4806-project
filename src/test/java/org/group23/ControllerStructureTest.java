@@ -123,4 +123,18 @@ public class ControllerStructureTest {
                 .andExpect(MockMvcResultMatchers.view().name("surveyCreated"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("survey"));
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user1")
+    public void deleteSurvey() throws Exception {
+        Survey survey = new Survey("SurveyMonkey", "user1");
+        this.surveyRepository.save(survey);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/deleteSurvey/{surveyId}", survey.getId())
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/createSurvey"))
+                .andExpect(MockMvcResultMatchers.flash().attributeCount(0));
+    }
 }
