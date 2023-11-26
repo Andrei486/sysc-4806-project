@@ -18,6 +18,8 @@
             <option value="range">Range</option>
             <option value="multipleChoice">Options</option>
         </select><br><br>
+        <label for="questionText">Create new question:</label>
+        <textarea id="questionText" name="questionText" required></textarea><br><br>
         <input type="submit" value="Add">
     </form>
 
@@ -36,6 +38,7 @@
 
     <!-- Form to delete the entire survey -->
     <form th:action="@{/deleteSurvey/{surveyId}(surveyId=${survey.id})}" method="post">
+        <input type="hidden" name="_method" value="delete" />
         <input type="submit" value="Delete Survey">
     </form>
 </body>
