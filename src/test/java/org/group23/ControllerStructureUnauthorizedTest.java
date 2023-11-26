@@ -101,4 +101,16 @@ public class ControllerStructureUnauthorizedTest {
                 .andExpect(MockMvcResultMatchers.view().name("error"));
     }
 
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user2")
+    public void deleteSurveyWrongUser() throws Exception {
+        Survey survey = new Survey("SurveyMonkey", "user1");
+        this.surveyRepository.save(survey);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/deleteSurvey/{surveyId}", survey.getId())
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andExpect(MockMvcResultMatchers.view().name("error"));
+    }
 }

@@ -135,6 +135,25 @@ public class ControllerStructure {
         }
     }
 
+    @DeleteMapping("/deleteSurvey/{surveyId}")
+    public String deleteSurvey(@PathVariable Long surveyId, Model model) {
+        // Get the survey by ID
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        if (survey != null && Objects.equals(username, survey.getAuthor())) {
+            // Delete the survey from the repository
+            surveyRepository.delete(survey);
+            // Redirect to the addRemoveQuestions page
+            return "redirect:/createSurvey";
+        } else {
+            // Handle survey not found or permission issue
+            model.addAttribute("message", "The survey was not found, or you do not have permission to delete it.");
+            return "error";
+        }
+    }
+
     @GetMapping("/viewResults/{surveyId}")
     public String viewResults(@PathVariable Long surveyId, Model model){
         Survey survey = surveyRepository.findById(surveyId).orElse(null);
