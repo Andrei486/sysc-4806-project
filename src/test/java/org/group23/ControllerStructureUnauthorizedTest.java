@@ -66,7 +66,7 @@ public class ControllerStructureUnauthorizedTest {
 
         String textQuestion = "Who is Joe?";
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/addQuestion/{surveyId}", survey.getId())
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/addQuestion/{surveyId}/text", survey.getId())
                         .param("questionText", textQuestion).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.view().name("error"));
