@@ -1,17 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Survey results</title>
-    <script src="../static/header.js" type="text/javascript" defer></script>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
 </head>
-<!--<body>
-    <h1>Result of your survey</h1>
-    <p th:each="question : ${survey.questions}">
-        <p th:each="result : ${question.answers}">
-            <span th:text="${result}"></span>
-        </p>
-    </p>
-</body>-->
+<body>
+    <div th:replace="fragments/header"></div>
+    <h1 th:text="'Results of the survey: '+ ${survey.name}"></h1>
+    <div th:each="question : ${survey.questions}">
+        <div th:text = "'Question:'"></div>
+        <div th:if="${question.class.name == 'org.group23.TextQuestion'}">
+            <div th:text = "${question.question}"></div>
+            <div th:text = "'Responses:'"></div>
+            <div th:each="result : ${question.answers}">
+                <div th:text="${result}"></div>
+            </div>
+        </div>
+        <div th:if="${question.class.name == 'org.group23.NumericalQuestion'}">
+            <div th:text = "${question.question}"></div>
+            <div th:text = "'Responses:'"></div>
+            <div th:each="result : ${question.answers}">
+                <div th:text="${result}"></div>
+            </div>
+        </div>
+        <div th:if="${question.class.name == 'org.group23.MCQuestion'}">
+            <div th:text = "${question.question}"></div>
+            <div th:text = "'Responses:'"></div>
+            <div th:each="result : ${question.answers}">
+                <div th:text="${result}"></div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
