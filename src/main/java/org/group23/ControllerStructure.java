@@ -154,4 +154,17 @@ public class ControllerStructure {
         }
     }
 
+    @GetMapping("/viewResults/{surveyId}")
+    public String viewResults(@PathVariable Long surveyId, Model model){
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+
+        if (survey != null) {
+            model.addAttribute("survey", survey);
+            return "viewResults";
+        } else {
+            // Handle the case where the survey is not found
+            return "error";
+        }
+    }
+
 }
