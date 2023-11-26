@@ -135,7 +135,7 @@ public class ControllerStructure {
         }
     }
 
-    @DeleteMapping("/deleteSurvey/{surveyId}")
+    @PostMapping("/deleteSurvey/{surveyId}")
     public String deleteSurvey(@PathVariable Long surveyId, Model model) {
         // Get the survey by ID
         Survey survey = surveyRepository.findById(surveyId).orElse(null);
