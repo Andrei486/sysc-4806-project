@@ -1,13 +1,12 @@
 <div>
     <label th:for="'question_' + ${question.id}" th:text="${question.question}"></label><br/>
-    <p>
-        <label>Options:
-            <input type="checkbox" name="options"
-                   th:each="option : ${question.options}"
-                   th:text="${option}"
-                   th:id="'question_' + ${question.id}"
-                   th:name="'question_' + ${question.id}"
-                   th:checked="${option} == 1" />
-        </label>
-    </p>
+    <label>Options:</label>
+    <div th:each="option : ${question.options}">
+        <input type="radio" name="options"
+               th:text="${option}"
+               th:value="${option}"
+               th:name="'question_' + ${question.id}"
+               th:checked="${option} == 1"/>
+        <br/>
+    </div>
 </div>
