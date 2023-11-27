@@ -53,7 +53,7 @@ public class ControllerStructureTest {
 
         String textQuestion = "Who is Joe?";
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/addQuestion/{surveyId}", survey.getId())
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/addQuestion/{surveyId}/text", survey.getId())
                         .param("questionText", textQuestion).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/addRemoveQuestions/" + survey.getId()));

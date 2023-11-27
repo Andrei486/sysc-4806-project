@@ -9,19 +9,55 @@
     <div th:replace="fragments/header"></div>
     <h1>Add or remove questions</h1>
     <p th:text="${survey.name}"></p>
+    <hr/>
 
-    <!-- Form to add a new question -->
-    <form th:action="@{/addQuestion/{surveyId}(surveyId=${survey.id})}" method="post">
-        <label for="questionDD">Choose question type</label>
-        <select id = "questionDD">
-            <option value="openEnded">Text</option>
-            <option value="range">Range</option>
-            <option value="multipleChoice">Options</option>
-        </select><br><br>
-        <label for="questionText">Create new question:</label>
-        <textarea id="questionText" name="questionText" required></textarea><br><br>
-        <input type="submit" value="Add">
+    <!-- Form to add a new text question -->
+    <form th:action="@{/addQuestion/{surveyId}/text(surveyId=${survey.id})}" method="post">
+        <label for="textQuestionText">Create new text question:</label><br>
+        <textarea id="textQuestionText" name="questionText" required></textarea><br><br>
+        <input type="submit" value="Add Text Question">
     </form>
+    <hr/>
+
+    <!-- Form to add a new numerical question -->
+    <form th:action="@{/addQuestion/{surveyId}/numerical(surveyId=${survey.id})}" method="post">
+        <label for="numericalQuestionText">Create new numerical question:</label><br>
+        <textarea id="numericalQuestionText" name="questionText" required></textarea><br>
+        <label for="numericalQuestionMinBound">Minimum bound:</label><br>
+        <input id="numericalQuestionMinBound" name="minBound" type="number" step="any" required/><br>
+        <label for="numericalQuestionMaxBound">Maximum bound:</label><br>
+        <input id="numericalQuestionMaxBound" name="maxBound" type="number" step="any" required/><br>
+        <br><br>
+        <input type="submit" value="Add Numerical Question">
+    </form>
+    <hr/>
+
+    <!-- Form to add a new MC question -->
+    <form th:action="@{/addQuestion/{surveyId}/mc(surveyId=${survey.id})}" method="post">
+        <label for="mcQuestionText">Create new multiple choice question:</label><br>
+        <textarea id="mcQuestionText" name="questionText" required></textarea><br>
+        Response options:
+        <ul id="mcOptions">
+            <li>
+                <label>
+                    <input type="text" name="mcOption1"/>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="text" name="mcOption2"/>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="text" name="mcOption3"/>
+                </label>
+            </li>
+        </ul>
+        <br><br>
+        <input type="submit" value="Add Multiple Choice Question">
+    </form>
+    <hr/>
 
     <!-- Display existing questions and allow deletion -->
     <ul>

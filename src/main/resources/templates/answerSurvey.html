@@ -15,6 +15,9 @@
             <div th:if="${question.class.name == 'org.group23.NumericalQuestion'}">
                 <div th:replace="fragments/numericalQuestionAnswerForm"></div>
             </div>
+            <div th:if="${question.class.name == 'org.group23.MCQuestion'}">
+                <div th:replace="fragments/MCQuestionAnswerForm"></div>
+            </div>
         </div>
 
         <input type="submit"/>
