@@ -6,9 +6,10 @@ This project is a simplified survey application, based on SurveyMonkey, allowing
 
 # Plan for next Sprint
 
-- Adding in the ability to generate multiple styles of questions
-- Ability to answer surveys
-- Ability to generate a results page with answers to the questions
+- Improve results display with addition of histograms and pie charts for showing data
+- Improve UI and style across all pages, especially for adding multiple choice questions
+- Allow users to register (if possible)
+- Improve navigation between webpagess
   
 # Getting Started
 
@@ -52,11 +53,11 @@ This project also has continuous integration set up, so that each successful pus
 # Schema and UML
 Schema:
 
-![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/c15f844f-bbd4-4909-92be-e353691111da)
+![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/f3510708-7c6a-49ac-993e-09eab4173319)
 
 UML:
 
-![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/d9482579-2a5d-4898-b1f2-834a3e7734f0)
+![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/d5dcd135-a634-46f7-980f-2e91143c628e)
 
 
 # Contribution
