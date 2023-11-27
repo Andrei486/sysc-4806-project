@@ -3,6 +3,7 @@
     <label th:for="'question_' + ${question.id}" th:text="${question.question}"></label><br/>
     <input
             type="number"
+            step="any"
             th:min="${question.minBound}"
             th:max="${question.maxBound}"
             th:id="'question_' + ${question.id}"
