@@ -40,6 +40,8 @@ public class SurveyAnswerControllerTest {
 
     @BeforeEach
     public void setup() {
+        surveyRepository.deleteAll();
+        questionRepository.deleteAll();
         Survey survey = new Survey("SurveyMonkey", "user1");
         Question textQuestion = new TextQuestion("Test TextQuestion");
         Question numericalQuestion = new NumericalQuestion("Test NumericalQuestion", -0.1, 20.0);
