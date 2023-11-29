@@ -115,7 +115,7 @@ public class AddRemoveQuestionController {
             @PathVariable Long surveyId,
             @ModelAttribute("survey") Survey survey,
             @RequestParam String questionText,
-            @RequestParam Map<String, String> allParameters,
+            @RequestParam(name="mcOption") List<String> mcOptions,
             Model model
     ) {
         // Validate length before adding to the database
@@ -132,13 +132,12 @@ public class AddRemoveQuestionController {
             // Create a text question and add it to the survey
             List<String> options = new LinkedList<>();
             // Find all MC options in parameters
-            allParameters.keySet().stream().filter(s -> s.startsWith("mcOption")).forEach(mcOptionKey -> {
-                String option = allParameters.get(mcOptionKey);
+            for (String option : mcOptions) {
                 // Don't allow empty options
                 if (!option.isBlank()) {
                     options.add(option);
                 }
-            });
+            }
             // TODO: should we allow MC questions with no option?
             MCQuestion mcQuestion = new MCQuestion(questionText, options);
             updatedSurvey.addQuestion(mcQuestion);
