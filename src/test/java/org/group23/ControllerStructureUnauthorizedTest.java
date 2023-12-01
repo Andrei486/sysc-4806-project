@@ -26,6 +26,7 @@ public class ControllerStructureUnauthorizedTest {
 
     @BeforeEach
     public void setup() {
+        surveyRepository.deleteAll();
         Survey survey = new Survey("SurveyMonkey", "user1");
         surveyRepository.save(survey);
     }
