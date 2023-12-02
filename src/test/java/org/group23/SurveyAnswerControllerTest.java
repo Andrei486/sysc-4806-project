@@ -34,6 +34,7 @@ public class SurveyAnswerControllerTest {
     private final String ANSWER_ID_PREFIX = "question_";
 
     private long surveyId;
+    private Survey survey;
     private long textQuestionId;
     private long numericalQuestionId;
     private long mcQuestionId;
@@ -42,7 +43,7 @@ public class SurveyAnswerControllerTest {
     public void setup() {
         surveyRepository.deleteAll();
         questionRepository.deleteAll();
-        Survey survey = new Survey("SurveyMonkey", "user1");
+        survey = new Survey("SurveyMonkey", "user1");
         Question textQuestion = new TextQuestion("Test TextQuestion");
         Question numericalQuestion = new NumericalQuestion("Test NumericalQuestion", -0.1, 20.0);
         LinkedList<String> options = new LinkedList<>();
@@ -102,5 +103,16 @@ public class SurveyAnswerControllerTest {
         assertTrue(numericalQuestion.getAnswers().contains(10.23));
         assertEquals(1, mcQuestion.getAnswers().size());
         assertTrue(mcQuestion.getAnswers().contains("Test Option 2"));
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user2")
+    public void showDisabledSurveyAnswerPage() throws Exception {
+        survey.setOpen(false);
+        surveyRepository.save(survey);
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/answerSurvey/{surveyId}", surveyId))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("error"));
     }
 }

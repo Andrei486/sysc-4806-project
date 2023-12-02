@@ -43,4 +43,11 @@ public class SurveyTest {
         survey1.setName("Best Survey");
         assertEquals(survey1.getName(), "Best Survey");
     }
+
+    @Test
+    public void testGetSetOpen(){
+        assertEquals(survey1.isOpen(), true);
+        survey1.setOpen(false);
+        assertEquals(survey1.isOpen(), false);
+    }
 }
