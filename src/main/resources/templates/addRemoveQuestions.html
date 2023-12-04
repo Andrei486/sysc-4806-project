@@ -37,15 +37,10 @@
     <form th:action="@{/addQuestion/{surveyId}/mc(surveyId=${survey.id})}" method="post">
         <label for="mcQuestionText">Create new multiple choice question:</label><br>
         <textarea id="mcQuestionText" name="questionText" required></textarea><br>
-        Response options:
+        Response options:<br>
         <button type="button" th:onclick="addMcOption()">Add Response Option</button>
         <ul id="mcOptions">
             <li id="firstMcOption">
-                <label>
-                    <input type="text" name="mcOption"/>
-                </label>
-            </li>
-            <li>
                 <label>
                     <input type="text" name="mcOption"/>
                 </label>
