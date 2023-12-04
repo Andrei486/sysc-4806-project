@@ -39,7 +39,8 @@
         <textarea id="mcQuestionText" name="questionText" required></textarea><br>
         Response options:<br>
         <button type="button" th:onclick="addMcOption()">Add Response Option</button>
-        <ul id="mcOptions">
+        <button type="button" th:onclick="removeMcOption()">Remove Response Option</button>
+        <ul id="mcOptions"> <!-- Initialize MC options with 2 options -->
             <li id="firstMcOption">
                 <label>
                     <input type="text" name="mcOption"/>
@@ -49,8 +50,7 @@
                 <label>
                     <input type="text" name="mcOption"/>
                 </label>
-            </li>
-        </ul>
+            </li></ul> <!-- Removed whitespace here: JS treated that specific whitespace as an element?? Who knows... -->
         <br><br>
         <input type="submit" value="Add Multiple Choice Question">
     </form>
