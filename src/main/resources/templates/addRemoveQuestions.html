@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Modify questions</title>
+    <script type="text/javascript" th:src="@{/js/addRemoveMcOptions.js}"></script>
 </head>
 <body>
     <div th:replace="fragments/header"></div>
@@ -37,8 +38,9 @@
         <label for="mcQuestionText">Create new multiple choice question:</label><br>
         <textarea id="mcQuestionText" name="questionText" required></textarea><br>
         Response options:
+        <button type="button" th:onclick="addMcOption()">Add Response Option</button>
         <ul id="mcOptions">
-            <li>
+            <li id="firstMcOption">
                 <label>
                     <input type="text" name="mcOption"/>
                 </label>
