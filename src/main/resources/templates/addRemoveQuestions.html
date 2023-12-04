@@ -71,6 +71,16 @@
             </li>
         </th:block>
     </ul>
+    <div th:if="${survey.open == true}">
+        <form action="#" th:action="@{/closeSurvey/{surveyId}(surveyId=${survey.id})}" method="post">
+            <p><input type="submit" value="Close Survey" /></p>
+        </form>
+    </div>
+    <div th:if="${survey.open == false}">
+        <form action="#" th:action="@{/openSurvey/{surveyId}(surveyId=${survey.id})}" method="post">
+            <p><input type="submit" value="Open Survey" /></p>
+        </form>
+    </div>
     <form action="#" th:action="@{/viewResults/{surveyId}(surveyId=${survey.id})}" method="get">
         <p><input type="submit" value="View Results" /></p>
     </form>
