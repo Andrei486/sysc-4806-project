@@ -20,9 +20,12 @@ public class SurveyAnswerController {
     @GetMapping("/answerSurvey/{surveyId}")
     public String showAnswerQuestions(@PathVariable Long surveyId, Model model) {
         Survey survey = surveyRepository.findById(surveyId).orElse(null);
-        if (survey != null) {
+        if (survey.isOpen() && survey != null) {
             model.addAttribute("survey", survey);
             return "answerSurvey";
+        } else if (!survey.isOpen() && survey != null) {
+            model.addAttribute("message", "The survey is not currently accepting responses");
+            return "error";
         } else {
             model.addAttribute("message", "The survey was not found.");
             return "error";

@@ -33,6 +33,8 @@ public class QuestionRepositoryEndpointTest {
 
     @BeforeEach
     public void setup() {
+        surveyRepository.deleteAll();
+        questionRepository.deleteAll();
         Question q1 = new Question("Test?");
         Question q2 = new Question("Test again?");
         Question q3 = new Question("Not in a survey yet?");

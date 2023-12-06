@@ -20,7 +20,7 @@
             <form th:action="@{/addQuestion/{surveyId}/text(surveyId=${survey.id})}" method="post">
                 <label for="textQuestionText">Create new text question:</label><br>
                 <textarea id="textQuestionText" name="questionText" required></textarea><br><br>
-                <input type="submit" value="Add Text Question">
+                <input type="submit" value="Add Text Question"/><br>
             </form>
             <hr>
 
@@ -36,7 +36,6 @@
                 <input type="submit" value="Add Numerical Question">
             </form>
             <hr/>
-
             <!-- Form to add a new MC question -->
             <form th:action="@{/addQuestion/{surveyId}/mc(surveyId=${survey.id})}" method="post">
                 <label for="mcQuestionText">Create new multiple choice question:</label><br>
@@ -45,17 +44,12 @@
                 <ul id="mcOptions">
                     <li>
                         <label>
-                            <input type="text" name="mcOption1"/>
+                            <input type="text" name="mcOption"/>
                         </label>
                     </li>
                     <li>
                         <label>
-                            <input type="text" name="mcOption2"/>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="text" name="mcOption3"/>
+                            <input type="text" name="mcOption"/>
                         </label>
                     </li>
                 </ul>
@@ -75,7 +69,7 @@
         </div>
 
         <!-- Display existing questions and allow deletion -->
-        <ul class="rightSide">
+        <div class="rightSide">
             <p>Added Questions:</p>
             <th:block th:each="question : ${survey.questions}">
                 <li>
@@ -86,8 +80,25 @@
                     <p></p> <!-- For spacing, this will be improved anyway later -->
                 </li>
             </th:block>
-        </ul>
+            <div th:if="${survey.open == true}">
+                <form action="#" th:action="@{/closeSurvey/{surveyId}(surveyId=${survey.id})}" method="post">
+                    <p><input type="submit" value="Close Survey" /></p>
+                </form>
+            </div>
+            <div th:if="${survey.open == false}">
+                <form action="#" th:action="@{/openSurvey/{surveyId}(surveyId=${survey.id})}" method="post">
+                    <p><input type="submit" value="Open Survey" /></p>
+                </form>
+            </div>
+            <form action="#" th:action="@{/viewResults/{surveyId}(surveyId=${survey.id})}" method="get">
+                <p><input type="submit" value="View Results" /></p>
+            </form>
+            <!-- Form to delete the entire survey -->
+            <form th:action="@{/deleteSurvey/{surveyId}(surveyId=${survey.id})}" method="post">
+                <!--input type="hidden" name="_method" value="delete" /-->
+                <input type="submit" value="Delete Survey">
+            </form>
+        </div>
     </div>
-
 </body>
 </html>
