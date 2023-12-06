@@ -1,5 +1,6 @@
 <!-- This is a reusable fragment that should be added at the top of every page (except login). -->
 <header xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}">
     <div sec:authorize="isAuthenticated()">
         Logged in as: <span sec:authentication="name"></span>
     </div>
