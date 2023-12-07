@@ -50,10 +50,11 @@ public class ControllerStructure {
         }
     }
 
-    @PostMapping("/deleteSurvey/{surveyId}")
-    public String deleteSurvey(@PathVariable Long surveyId, Model model) {
-        // Get the survey by ID
-        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+    @RequestMapping(value = {"/deleteSurvey/{surveyId}", "/deleteSurvey"}, method = {RequestMethod.POST, RequestMethod.DELETE})
+    public String deleteSurvey(@PathVariable(required = false) Long surveyId, Model model) {
+        // Get the survey by ID if available
+        Survey survey = (surveyId != null) ? surveyRepository.findById(surveyId).orElse(null) : null;
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 

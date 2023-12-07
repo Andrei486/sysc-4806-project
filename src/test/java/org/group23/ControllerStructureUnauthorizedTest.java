@@ -109,7 +109,7 @@ public class ControllerStructureUnauthorizedTest {
         Survey survey = new Survey("SurveyMonkey", "user1");
         this.surveyRepository.save(survey);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/deleteSurvey/{surveyId}", survey.getId())
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/deleteSurvey/{surveyId}", survey.getId())
                         .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.view().name("error"));
