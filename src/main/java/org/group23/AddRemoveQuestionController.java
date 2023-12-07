@@ -140,12 +140,6 @@ public class AddRemoveQuestionController {
             // TODO: should we allow MC questions with no option?
             MCQuestion mcQuestion = new MCQuestion(questionText, options);
 
-            // Check for duplicate options
-            if (containsDuplicates(options)) {
-                model.addAttribute("error", "Multiple options with the same text are not allowed.");
-                return "error";
-            }
-
             if (options.isEmpty()) {
                 model.addAttribute("error", "Multiple-choice questions must have at least one option.");
                 return "error";
@@ -163,17 +157,6 @@ public class AddRemoveQuestionController {
                     "The survey was not found, or you do not have permission to edit it.");
             return "error";
         }
-    }
-
-    // Helper method to check for duplicate options
-    private boolean containsDuplicates(List<String> options) {
-        Set<String> uniqueOptions = new HashSet<>();
-        for (String option : options) {
-            if (!uniqueOptions.add(option.trim())) {
-                return true; // Duplicate found
-            }
-        }
-        return false; // No duplicates found
     }
 
     @PostMapping("/deleteQuestion/{surveyId}/{questionId}")
