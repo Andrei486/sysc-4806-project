@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Modify questions</title>
+    <script type="text/javascript" th:src="@{/js/addRemoveMcOptions.js}"></script>
     <link rel="stylesheet" th:href="@{/styles/styles.css}">
 </head>
 <body>
@@ -40,9 +41,11 @@
             <form th:action="@{/addQuestion/{surveyId}/mc(surveyId=${survey.id})}" method="post">
                 <label for="mcQuestionText">Create new multiple choice question:</label><br>
                 <textarea id="mcQuestionText" name="questionText" required></textarea><br>
-                Response options:
-                <ul id="mcOptions">
-                    <li>
+                Response options:<br>
+                <button type="button" th:onclick="addMcOption()">Add Response Option</button>
+                <button type="button" th:onclick="removeMcOption()">Remove Response Option</button>
+                <ul id="mcOptions"> <!-- Initialize MC options with 2 options -->
+                    <li id="firstMcOption">
                         <label>
                             <input type="text" name="mcOption"/>
                         </label>
@@ -51,13 +54,11 @@
                         <label>
                             <input type="text" name="mcOption"/>
                         </label>
-                    </li>
-                </ul>
+                    </li></ul> <!-- Removed whitespace here: JS treated that specific whitespace as an element?? Who knows... -->
                 <br><br>
                 <input type="submit" value="Add Multiple Choice Question">
             </form>
             <hr/>
-
             <form action="#" th:action="@{/viewResults/{surveyId}(surveyId=${survey.id})}" method="get">
                 <p><input type="submit" value="View Results" /></p>
             </form>

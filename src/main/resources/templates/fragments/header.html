@@ -6,8 +6,8 @@
         <a href="/register">Register</a>
     </nav>
     <nav sec:authorize="isAuthenticated()">
-        Logged in as: <span sec:authentication="name"></span>
-        <a href="/">Home</a>
+        Logged in as: <span sec:authentication="name"></span><br/>
+        <a href="/">Home</a><br/>
         <form th:action="@{/logout}" method="post" style="display: inline;">
             <div><input type="submit" value="Sign Out"/></div>
         </form>
