@@ -1,6 +1,5 @@
 <!-- This is a reusable fragment used to generate answer forms for a numerical question. -->
 <div>
-    <link rel="stylesheet" th:href="@{/styles/styles.css}">
     <label th:for="'question_' + ${question.id}" th:text="${question.question}"></label><br/>
     <input
             type="number"

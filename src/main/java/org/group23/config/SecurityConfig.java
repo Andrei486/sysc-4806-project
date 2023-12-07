@@ -68,6 +68,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(mvc.pattern("/register")).permitAll()
                         .requestMatchers(mvc.pattern("/")).permitAll()
+                        .requestMatchers(mvc.pattern("/styles/*")).permitAll()
                         .anyRequest().authenticated()
                 )
                 // Define the login path, and allow all requests to it

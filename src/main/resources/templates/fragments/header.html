@@ -1,6 +1,5 @@
 <!-- This is a reusable fragment that should be added at the top of every page (except login). -->
 <header xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <link rel="stylesheet" th:href="@{/styles/styles.css}">
     <nav sec:authorize="!isAuthenticated()">
         Not logged in.<br/>
         <a href="/login">Login</a><br/>
