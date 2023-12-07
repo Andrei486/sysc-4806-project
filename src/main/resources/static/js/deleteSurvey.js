@@ -8,7 +8,6 @@ function deleteSurvey(surveyId) {
         type: "DELETE",
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': getCsrfToken() // Assuming you're using CSRF protection
         },
         error: function(error) {
             // Handle error
@@ -28,9 +27,4 @@ $(document).ready(function() {
         // Call the global deleteSurvey function
         deleteSurvey(surveyId);
     });
-
-    function getCsrfToken() {
-        // Retrieve CSRF token from the page (assuming it's present)
-        return null;
-    }
 });
