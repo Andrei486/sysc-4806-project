@@ -11,7 +11,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.LinkedList;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -137,5 +140,28 @@ public class ControllerStructureTest {
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/createSurvey"))
                 .andExpect(MockMvcResultMatchers.flash().attributeCount(0));
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user2")
+    public void viewSurveysShowsAllForUser() throws Exception {
+        Survey s1 = new Survey("Test Survey 1", "user2");
+        Survey s2 = new Survey("Test Survey 2", "user2");
+        surveyRepository.save(s1);
+        surveyRepository.save(s2);
+        var id = s1.getId();
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/viewSurveys"))
+                // Check that request was successful
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("viewSurveys"))
+                // Check that (only) the correct surveys are present
+                .andExpect(xpath("//h2[contains(text(), \"Test Survey 1\")]").exists())
+                .andExpect(xpath("//h2[contains(text(), \"Test Survey 2\")]").exists())
+                .andExpect(xpath("//h2[contains(text(), \"SurveyMonkey\")]").doesNotExist())
+                // Check that each kind of link exists for a survey
+                .andExpect(xpath(String.format("//a[@href=\"/addRemoveQuestions/%d\"]", id)).exists())
+                .andExpect(xpath(String.format("//a[@href=\"/viewResults/%d\"]", id)).exists())
+                .andExpect(xpath(String.format("//a[@href=\"/answerSurvey/%d\"]", id)).exists());
     }
 }

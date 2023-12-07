@@ -51,6 +51,26 @@ public class SurveyRepositoryTest {
 
     @Test
     @DirtiesContext
+    public void getSurveysByAuthor() {
+        var name1 = "Test Survey 1";
+        var name2 = "Test Survey 2";
+        var name3 = "Test Survey 3";
+        var s1 = new Survey(name1, "admin");
+        var s2 = new Survey(name2, "admin");
+        var s3 = new Survey(name3, "not-admin");
+        surveyRepository.save(s1);
+        surveyRepository.save(s2);
+        surveyRepository.save(s3);
+
+        Iterable<Survey> results1 = surveyRepository.findAllByAuthor("admin");
+        Iterable<Survey> results2 = surveyRepository.findAllByAuthor("not-admin");
+
+        assertEquals(2, StreamSupport.stream(results1.spliterator(), false).count());
+        assertEquals(1, StreamSupport.stream(results2.spliterator(), false).count());
+    }
+
+    @Test
+    @DirtiesContext
     public void getSurveyByName() {
         var name1 = "Test Survey 1";
         var name2 = "Test Survey 2";

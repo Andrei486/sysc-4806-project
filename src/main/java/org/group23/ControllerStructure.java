@@ -82,4 +82,14 @@ public class ControllerStructure {
         }
     }
 
+    @GetMapping("/viewSurveys")
+    public String viewUserSurveys(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName(); // Should be non-null: page cannot be accessed unauthenticated
+
+        var surveys = surveyRepository.findAllByAuthor(username);
+        model.addAttribute("surveys", surveys);
+        return "viewSurveys";
+    }
+
 }

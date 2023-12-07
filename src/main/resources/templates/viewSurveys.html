@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>View surveys</title>
+    <link rel="stylesheet" th:href="@{/styles/styles.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/header"></div>
+    <h1>Your surveys</h1>
+    <div th:each="survey : ${surveys}">
+        <h2 th:text="${survey.name}"></h2>
+        <a th:href="@{/addRemoveQuestions/{surveyId}(surveyId=${survey.id})}"><button class="btn">Edit survey</button></a>
+        <a th:href="@{/viewResults/{surveyId}(surveyId=${survey.id})}"><button class="btn">View survey results</button></a>
+        <a th:href="@{/answerSurvey/{surveyId}(surveyId=${survey.id})}"><button class="btn">Answer survey</button></a>
+        <hr/>
+    </div>
+</body>
+</html>
