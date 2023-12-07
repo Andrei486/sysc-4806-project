@@ -89,7 +89,7 @@
                 <p><input type="submit" value="View Results" /></p>
             </form>
             <!-- Form to delete the entire survey -->
-            <form id="deleteForm" th:action="@{/deleteSurvey/{surveyId}(surveyId=${survey.id})}" method="post" th:onclick="'deleteSurvey(' + ${survey.id} + '); return false;'">
+            <form id="deleteForm" th:action="@{/deleteSurvey/{surveyId}(surveyId=${survey.id})}" method="post" onsubmit="deleteSurvey(${survey.id}); return false;">
                 <input type="submit" value="Delete Survey">
             </form>
         </div>

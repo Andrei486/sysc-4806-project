@@ -1,6 +1,7 @@
 package org.group23;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -50,7 +51,7 @@ public class ControllerStructure {
         }
     }
 
-    @RequestMapping(value = {"/deleteSurvey/{surveyId}", "/deleteSurvey"}, method = {RequestMethod.POST, RequestMethod.DELETE})
+    @DeleteMapping("/deleteSurvey/{surveyId}")
     public String deleteSurvey(@PathVariable(required = false) Long surveyId, Model model) {
         // Get the survey by ID if available
         Survey survey = (surveyId != null) ? surveyRepository.findById(surveyId).orElse(null) : null;
