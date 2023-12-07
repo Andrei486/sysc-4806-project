@@ -64,9 +64,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         http
-                // Allow all requests to the home page
+                // Allow all requests to the home page and registration page
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers(mvc.pattern("/register")).permitAll()
                         .requestMatchers(mvc.pattern("/")).permitAll()
+                        .requestMatchers(mvc.pattern("/styles/*")).permitAll()
                         .anyRequest().authenticated()
                 )
                 // Define the login path, and allow all requests to it

@@ -16,6 +16,8 @@ public class Survey {
 
     private String author;
 
+    private boolean open;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
 
@@ -27,6 +29,7 @@ public class Survey {
         this();
         this.name = name;
         this.author = author;
+        this.open = true;
     }
 
     public void addQuestion(Question question){
@@ -69,4 +72,11 @@ public class Survey {
         this.author = author;
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
 }

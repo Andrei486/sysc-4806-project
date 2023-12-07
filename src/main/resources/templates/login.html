@@ -2,18 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
         <title>Mini Survey Monkey - Login</title>
+        <link rel="stylesheet" th:href="@{/styles/styles.css}">
     </head>
     <body>
+        <div th:replace="fragments/header"></div>
+        <h1>Login</h1>
+        <form th:action="@{/login}" method="post">
+            <div><label> User Name: <input type="text" name="username"/> </label></div>
+            <div><label> Password: <input type="password" name="password"/> </label></div>
+            <div><input type="submit" value="Sign In"/></div>
+        </form>
+        <div th:if="${param.registered}"> <!-- A user coming from a successful registration will arrive to this page with this URL param set. -->
+            Account successfully registered!
+        </div>
         <div th:if="${param.error}"> <!-- A user that fails a login will arrive to this page with this URL param set. -->
             Invalid username and password.
         </div>
         <div th:if="${param.logout}"> <!-- A user logging out will arrive to this page with this URL param set. -->
             You have been logged out.
         </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
     </body>
 </html>
