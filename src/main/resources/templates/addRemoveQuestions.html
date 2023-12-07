@@ -61,14 +61,6 @@
                 <input type="submit" value="Add Multiple Choice Question">
             </form>
             <hr/>
-            <form action="#" th:action="@{/viewResults/{surveyId}(surveyId=${survey.id})}" method="get">
-                <p><input type="submit" value="View Results" /></p>
-            </form>
-            <!-- Form to delete the entire survey -->
-            <form th:action="@{/deleteSurvey/{surveyId}(surveyId=${survey.id})}" method="post">
-                <!--input type="hidden" name="_method" value="delete" /-->
-                <input type="submit" value="Delete Survey">
-            </form>
         </div>
 
         <!-- Display existing questions and allow deletion -->
