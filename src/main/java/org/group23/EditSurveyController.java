@@ -139,6 +139,11 @@ public class EditSurveyController {
             }
             // TODO: should we allow MC questions with no option?
             MCQuestion mcQuestion = new MCQuestion(questionText, options);
+
+            if (options.isEmpty()) {
+                model.addAttribute("error", "Multiple-choice questions must have at least one option.");
+                return "error";
+            }
             updatedSurvey.addQuestion(mcQuestion);
             surveyRepository.save(updatedSurvey);
 

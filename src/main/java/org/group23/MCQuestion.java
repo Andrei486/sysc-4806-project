@@ -3,8 +3,7 @@ package org.group23;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * A question type that allows selecting one option from a choice of many
@@ -33,6 +32,7 @@ public class MCQuestion extends Question {
     public MCQuestion(String question, Collection<String> options) {
 
         super(question);
+        containsDuplicates((List<String>) options);
         this.options = options;
 
     }
@@ -42,9 +42,19 @@ public class MCQuestion extends Question {
     }
 
     public void setOptions(Collection<String> options) {
+        containsDuplicates((List<String>) options);
         this.options = options;
     }
 
+    // Helper method to check for duplicate options
+    private void containsDuplicates(List<String> options) {
+        Set<String> uniqueOptions = new HashSet<>();
+        for (String option : options) {
+            if (!uniqueOptions.add(option.trim())) {
+                throw new IllegalArgumentException("Multiple options with the same text are not allowed."); // Duplicate found
+            }
+        }
+    }
     public Collection<String> getAnswers() {
         return answers;
     }
