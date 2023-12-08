@@ -99,6 +99,7 @@
                 <!--input type="hidden" name="_method" value="delete" /-->
                 <input type="submit" value="Delete Survey">
             </form>
+            <a th:href="@{/answerSurvey/{surveyId}(surveyId=${survey.id})}"><button class="btn">Answer survey</button></a>
         </div>
     </div>
 </body>
