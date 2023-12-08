@@ -6,4 +6,6 @@ public interface SurveyRepository extends CrudRepository<Survey, Long> {
 
     Survey findByName(String name);
     Survey findTopByOrderByIdDesc();
+
+    Iterable<Survey> findAllByAuthor(String author);
 }
