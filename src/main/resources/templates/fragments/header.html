@@ -2,13 +2,14 @@
 <header xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <nav sec:authorize="!isAuthenticated()">
         Not logged in.<br/>
-        <a href="/login">Login</a><br/>
-        <a href="/register">Register</a>
+        <a href="/"><button class="btn">Home</button></a>
+        <a href="/login"><button class="btn">Login</button></a>
+        <a href="/register"><button class="btn">Register</button></a>
     </nav>
     <nav sec:authorize="isAuthenticated()">
         Logged in as: <span sec:authentication="name"></span><br/>
-        <a href="/">Home</a><br/>
-        <form th:action="@{/logout}" method="post" style="display: inline;">
+        <a href="/"><button class="btn">Home</button></a>
+        <form th:action="@{/logout}" method="post" style="display: inline-block;">
             <div><input type="submit" value="Sign Out"/></div>
         </form>
     </nav>
