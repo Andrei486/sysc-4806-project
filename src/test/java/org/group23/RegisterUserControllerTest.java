@@ -16,7 +16,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -77,5 +79,14 @@ public class RegisterUserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/register?userExists"));
         assertTrue(userDetailsManager.userExists(username));
+    }
+
+    @Test
+    @DirtiesContext
+    public void loginTest() throws Exception {
+        String username = "User1";
+        String password = "Password1";
+        assertTrue(userDetailsManager.userExists(username));
+        this.mockMvc.perform(formLogin().user(username).password(password)).andExpect(authenticated().withRoles("USER"));
     }
 }
