@@ -95,13 +95,10 @@ public class NumericalQuestion extends Question {
         return numericalAnswers;
     }
 
-    //Allow setting null for bounds
-    public void setNumericalAnswers(List<Double> newAnswers, Double newMinBound, Double newMaxBound) {
-        if (newMinBound != null || newMaxBound != null) {
-            validateBounds(newMinBound, newMaxBound);
+    public void setNumericalAnswers(List<Double> newAnswers) {
+        for (Double answer : newAnswers) {
+            validateNumericalAnswer(answer);
         }
-        minBound = newMinBound;
-        maxBound = newMaxBound;
         numericalAnswers.clear();
         numericalAnswers.addAll(newAnswers);
     }
