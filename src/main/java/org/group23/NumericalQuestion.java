@@ -10,9 +10,10 @@ import java.util.List;
 @Entity
 public class NumericalQuestion extends Question {
 
-    //single numerical answer with a restricted length
     @ElementCollection
     private List<Double> numericalAnswers;
+
+    //Allow nullability for minBound and maxBound
     @Column
     private Double minBound;
 
@@ -26,6 +27,14 @@ public class NumericalQuestion extends Question {
         this.numericalAnswers = new ArrayList<>();
     }
 
+    //Constructor without bounds
+    public NumericalQuestion(String question) {
+        super(question);
+        this.numericalAnswers = new ArrayList<>();
+        this.minBound = null;
+        this.maxBound = null;
+    }
+
     public NumericalQuestion() {
         super();
         this.numericalAnswers = new ArrayList<>();
@@ -36,7 +45,10 @@ public class NumericalQuestion extends Question {
     }
 
     private void addNumericalAnswer(Double answer){
-        validateNumericalAnswer(answer);
+        //Check bounds only if they are specified
+        if (minBound != null && maxBound != null) {
+            validateNumericalAnswer(answer);
+        }
         this.numericalAnswers.add(answer);
     }
 
@@ -45,12 +57,25 @@ public class NumericalQuestion extends Question {
         addNumericalAnswer(Double.parseDouble(rawAnswer));
     }
 
+    //Validate bounds only if they are specified
+    public void validateNumericalAnswer(Double numericalAnswer) {
+        if (minBound != null && numericalAnswer < minBound) {
+            throw new IllegalArgumentException("Numerical answer must be greater than or equal to the specified minimum bound.");
+        }
+        if (maxBound != null && numericalAnswer > maxBound) {
+            throw new IllegalArgumentException("Numerical answer must be less than or equal to the specified maximum bound.");
+        }
+    }
+
     public Double getMinBound() {
         return minBound;
     }
 
+    //Allow setting null for minBound
     public void setMinBound(Double minBound) {
-        validateBounds(minBound, maxBound);
+        if (maxBound != null) {
+            validateBounds(minBound, maxBound);
+        }
         this.minBound = minBound;
     }
 
@@ -58,8 +83,11 @@ public class NumericalQuestion extends Question {
         return maxBound;
     }
 
+    //Allow setting null for maxBound
     public void setMaxBound(Double maxBound) {
-        validateBounds(minBound, maxBound);
+        if (minBound != null) {
+            validateBounds(minBound, maxBound);
+        }
         this.maxBound = maxBound;
     }
 
@@ -75,14 +103,9 @@ public class NumericalQuestion extends Question {
         numericalAnswers.addAll(newAnswers);
     }
 
-    private void validateNumericalAnswer(Double numericalAnswer) {
-        if (numericalAnswer < minBound || numericalAnswer > maxBound) {
-            throw new IllegalArgumentException("Numerical answer must be within the specified range.");
-        }
-    }
-
+    //Validate bounds only if they are specified
     private void validateBounds(Double minBound, Double maxBound) {
-        if (minBound >= maxBound) {
+        if (minBound != null && maxBound != null && minBound >= maxBound) {
             throw new IllegalArgumentException("Minimum bound must be less than maximum bound.");
         }
     }

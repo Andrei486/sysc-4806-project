@@ -77,8 +77,8 @@ public class EditSurveyController {
             @PathVariable Long surveyId,
             @ModelAttribute("survey") Survey survey,
             @RequestParam String questionText,
-            @RequestParam Double minBound,
-            @RequestParam Double maxBound,
+            @RequestParam(required = false) Double minBound,  // Updated: Make bounds optional
+            @RequestParam(required = false) Double maxBound,  // Updated: Make bounds optional
             Model model
     ) {
         // Validate length before adding to the database
@@ -92,8 +92,16 @@ public class EditSurveyController {
         String username = auth.getName();
         Survey updatedSurvey = surveyRepository.findById(surveyId).orElse(null);
         if (updatedSurvey != null && Objects.equals(username, updatedSurvey.getAuthor())) {
-            // Create a text question and add it to the survey
-            NumericalQuestion numericalQuestion = new NumericalQuestion(questionText, minBound, maxBound);
+            // Create a numerical question and add it to the survey
+            NumericalQuestion numericalQuestion;
+
+            // Updated: Check if both minBound and maxBound are null, indicating no bounds specified
+            if (minBound == null && maxBound == null) {
+                numericalQuestion = new NumericalQuestion(questionText);
+            } else {
+                numericalQuestion = new NumericalQuestion(questionText, minBound, maxBound);
+            }
+
             updatedSurvey.addQuestion(numericalQuestion);
             surveyRepository.save(updatedSurvey);
 

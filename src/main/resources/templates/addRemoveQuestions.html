@@ -30,9 +30,11 @@
                 <label for="numericalQuestionText">Create new numerical question:</label><br>
                 <textarea id="numericalQuestionText" name="questionText" required></textarea><br>
                 <label for="numericalQuestionMinBound">Minimum bound:</label><br>
-                <input id="numericalQuestionMinBound" name="minBound" type="number" step="any" required/><br>
+                <!-- Updated: Make minBound optional -->
+                <input id="numericalQuestionMinBound" name="minBound" type="number" step="any"/><br>
                 <label for="numericalQuestionMaxBound">Maximum bound:</label><br>
-                <input id="numericalQuestionMaxBound" name="maxBound" type="number" step="any" required/><br>
+                <!-- Updated: Make maxBound optional -->
+                <input id="numericalQuestionMaxBound" name="maxBound" type="number" step="any"/><br>
                 <br><br>
                 <input type="submit" value="Add Numerical Question">
             </form>
