@@ -92,4 +92,9 @@ public class ControllerStructure {
         return "viewSurveys";
     }
 
+    @GetMapping("/slay")
+    public String showSlayPage() {
+        return "slayPage";
+    }
+
 }
