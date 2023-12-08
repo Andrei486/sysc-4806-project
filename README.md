@@ -3,13 +3,6 @@
 # Background
 
 This project is a simplified survey application, based on SurveyMonkey, allowing surveyors to create surveys with diverse question types—open-ended, numeric within a range, and multiple-choice. The application dynamically generates user-friendly survey forms corresponding to the question types. Participants can fill out these surveys, and surveyors have the flexibility to close surveys at their discretion. Upon closure, the application generates a comprehensive result report, presenting open-ended responses as-is, visualizing numeric answers through histograms, and displaying multiple-choice responses in pie charts. With features for survey creation, participant engagement, and result compilation, the application serves as a versatile tool for conducting and analyzing surveys in various formats.
-
-# Plan for next Sprint
-
-- Improve results display with addition of histograms and pie charts for showing data
-- Improve UI and style across all pages, especially for adding multiple choice questions
-- Allow users to register (if possible)
-- Improve navigation between webpagess
   
 # Getting Started
 
@@ -53,11 +46,11 @@ This project also has continuous integration set up, so that each successful pus
 # Schema and UML
 Schema:
 
-![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/f3510708-7c6a-49ac-993e-09eab4173319)
+![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/7c5f8843-0bff-4b79-8b82-1cf32a3dc8ad)
 
 UML:
 
-![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/d5dcd135-a634-46f7-980f-2e91143c628e)
+![image](https://github.com/Andrei486/sysc-4806-project/assets/78574494/446897a8-7dee-4ba1-b1fd-275d6274de68)
 
 
 # Contribution
